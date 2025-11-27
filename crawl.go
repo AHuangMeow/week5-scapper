@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"sync"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -82,4 +83,22 @@ func GetUserByID(id int, cookieValue string) {
 		}
 		fmt.Println(user)
 	}
+}
+
+func Crawl() {
+	InitMongoDB("mongodb://localhost:27017", "userdb")
+	cookieValue := GetCookie()
+	var wg sync.WaitGroup
+
+	for i := 2024000000; i <= 2024999999; i += 50000 {
+		wg.Add(1)
+		go func(from int) {
+			for id := from; id < from+50000; id++ {
+				GetUserByID(id, cookieValue)
+			}
+			wg.Done()
+		}(i)
+	}
+
+	wg.Wait()
 }

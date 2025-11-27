@@ -14,9 +14,7 @@ type QueryResponse struct {
 	Msg string `json:"msg"`
 }
 
-func GetSitInfo() (string, string, string) {
-	cookieValue := GetCookie()
-
+func GetSitInfo(cookieValue string) (string, string, string) {
 	base := "http://kjyy.ccnu.edu.cn/ClientWeb/pro/ajax/center.aspx?act=get_History_resv&strat=90&StatFlag=New&_=1764240101437"
 
 	req, err := http.NewRequest("GET", base, nil)
@@ -58,7 +56,7 @@ func GetSitInfo() (string, string, string) {
 }
 
 func Query() {
-	rsvID, start, end := GetSitInfo()
+	rsvID, start, end := GetSitInfo(GetCookie())
 	if rsvID == "" {
 		fmt.Println("No reserved sit")
 	} else {

@@ -19,6 +19,8 @@ func main() {
 		Reserve()
 	case "-q", "--query":
 		Query()
+	case "-a", "--abort":
+		Abort()
 	default:
 		log.Fatal("Invalid Argument")
 	}

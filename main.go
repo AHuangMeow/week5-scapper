@@ -17,6 +17,8 @@ func main() {
 		Crawl()
 	case "-r", "--reserve":
 		Reserve()
+	case "-q", "--query":
+		Query()
 	default:
 		log.Fatal("Invalid Argument")
 	}

@@ -11,7 +11,9 @@ func main() {
 		log.Fatal("Argument required")
 	}
 
-	if os.Args[1] == "-q" || os.Args[1] == "--query" {
+	arg := os.Args[1]
+
+	if arg == "-c" || arg == "--crawl" {
 		InitMongoDB("mongodb://localhost:27017", "userdb")
 		cookieValue := GetCookie()
 		var wg sync.WaitGroup
